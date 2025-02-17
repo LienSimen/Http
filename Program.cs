@@ -27,13 +27,13 @@ namespace Http
                 using HttpClient client = new();
 
                 string data = await client.GetStringAsync(url);
-
+                // Deserialize data into c# object then serialize to string where we keep indents
                 var prettyJson1 = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(data), JsonOptions);
                 Console.WriteLine(prettyJson1);
-
+                // Deserialize to a tree like structure. Good speed
                 var prettyJson2 = JsonNode.Parse(data)?.ToJsonString(JsonOptions);
                 Console.WriteLine(prettyJson2);
-
+                // Deserialize into jsondocument optimized for speed, read only.
                 var prettyJson3 = JsonSerializer.Serialize(JsonDocument.Parse(data).RootElement, JsonOptions);
                 await File.WriteAllTextAsync(filePath, prettyJson3);
             }
