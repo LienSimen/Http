@@ -33,7 +33,7 @@ namespace Http
                 // Deserialize to a tree like structure. Good speed
                 var prettyJson2 = JsonNode.Parse(data)?.ToJsonString(JsonOptions);
                 Console.WriteLine(prettyJson2);
-                // Deserialize into jsondocument optimized for speed, read only.
+                // Parse directly into jsondocument optimized for speed, read only.
                 var prettyJson3 = JsonSerializer.Serialize(JsonDocument.Parse(data).RootElement, JsonOptions);
                 await File.WriteAllTextAsync(filePath, prettyJson3);
             }
